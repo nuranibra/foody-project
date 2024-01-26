@@ -1,0 +1,26 @@
+@import url(./../../styles/font/font.css);
+
+.headerText{
+    color: #F5F5F5;
+    text-align: center;
+    font-family: Mukta;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 24px;
+    letter-spacing: 0.84px;
+}
+
+.headerPoint{
+    color: #EAAB00;
+    font-family: Mukta;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: 24px;
+    letter-spacing: 0.84px;
+}
+
+.box{
+    display: flex;
+}
