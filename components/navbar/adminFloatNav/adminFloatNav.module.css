@@ -1,0 +1,40 @@
+.linkbox, .linkboxHeadFoot{
+    padding:8%;
+    color:#fff;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    column-gap: 10px;
+    align-items: center;
+    cursor:pointer;
+}
+
+.box{
+    background-color: #C74FEB;
+    border-radius: 20px;
+}
+
+.linkbox:hover, .linkboxHeadFoot:hover{
+    background-color: #cb6fe7;
+}
+
+.linkboxHeadFoot{
+    border-radius: 14px;
+}
+
+.btnLogOut{
+    background:none;
+    width: 100%;
+    border:none;
+}
+
+.link, .btnLogOut{
+    color: #FCDDEC;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 21px; /* 131.25% */
+    letter-spacing: 0.1px;
+    text-decoration: none;
+}

@@ -24,3 +24,9 @@
 .box{
     display: flex;
 }
+
+@media only screen and (max-width:280px){
+    .headerText, .headerPoint{
+        font-size: 18px;
+    }
+}

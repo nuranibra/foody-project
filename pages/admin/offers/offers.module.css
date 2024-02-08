@@ -1,0 +1,115 @@
+@import url(./../../../styles/font/font.css);
+
+.box{
+    background-color: #1E1E30;
+    height: 100vh;
+}
+
+.mainBox{
+    display: flex;
+    box-sizing: border-box;
+    padding:2%;
+    gap:20px;
+}
+
+.navFloatBox{
+    width: 12%;
+    height: 75vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.mainIndBox{
+    display: flex;
+    flex-direction: column;
+    gap:20px;
+    width: 88%;
+}
+
+.headerMainBoxOffer{
+    background-color: #27283C;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2%;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 14px;
+    align-items: center;
+}
+
+.headerMainBoxOffer > h3{
+    color:#fff;
+    font-family: Roboto;
+    font-size: 20px;
+}
+
+.headerMainBoxOffer > div > button{
+    border:none;
+    background-color:#C74FEB ;
+    color:#fff;
+    font-family: Roboto;
+    border-radius: 10px;
+    height: 30px;
+}
+
+.listMainInd{
+    overflow: scroll;
+    background-color: #fff;
+    min-height: 50vh;
+    max-height: 50vh;
+    box-sizing: border-box;
+}
+
+.listHeadBox{
+    display: flex;
+    padding:1%;
+    border-bottom:2px solid #ccc;
+    justify-content: space-between;
+    font-family: Roboto;
+    align-items: center;
+    align-self: center;
+}
+
+
+.listMainBox{
+    display: flex;
+    padding:1%;
+    justify-content: space-between;
+    font-family: Roboto;
+    align-items: center;
+    align-self: center;
+    border-bottom: 1px solid #ccc;
+}
+
+.addBox{
+    width: 50%;
+}
+
+.listImage{
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+}
+
+.deleteIo{
+    font-size: 25px;
+    color:red;
+}
+
+@media only screen and (max-width:445px){
+    .navFloatBox{
+        display: none;
+    } .mainIndBox{
+        width: 100%;
+    } .listMainInd{
+        font-size:10px;
+    } .addBox{
+        width: 100%;
+    } .listImage{
+        width:30px;
+        height: 30px;
+    } .deleteIo{
+        font-size:15px;
+    }
+}

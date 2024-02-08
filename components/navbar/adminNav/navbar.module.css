@@ -1,0 +1,97 @@
+.header{
+    background: #27283C;
+    padding:2%;
+    width: 93%;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.langPhoto{
+    width: 30%;
+    height: 30%;
+    border-radius:50%;
+    margin-left:auto;
+    margin-right:auto;
+    /* border:1px solid #c4c4c4; */
+}
+
+.langBoxOpen{
+    position: relative;
+    background-color: #27283C;
+}
+
+.otherItemBox{
+    display: flex;
+    align-items: center;
+    align-self: center;
+    justify-content: space-between;
+    width: 30%;
+}
+
+.avatarAdmin{
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    width: 33%;
+}
+
+.avatarImage{
+    width: 30%;
+    height: 30%;
+    border-radius: 50%;
+}
+
+.btn{
+    border-radius: 14px;
+    border: 2px solid #C035A2;
+    background: #C035A2;
+    box-shadow: 0px 4px 4px 0px rgba(39, 174, 96, 0.20);
+    color: #FFF;
+    text-align: center;
+    font-family: Roboto;
+    font-size: 10px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 21px; /* 210% */
+    letter-spacing: 0.25px;
+    cursor: pointer;
+    transition: calc(0.2s);
+}
+
+.btn:hover{
+    box-shadow:none;
+}
+
+.adminText{
+    color: rgba(245, 245, 245, 0.87);
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px; /* 187.5% */
+    letter-spacing: 0.15px;
+}
+
+@media only screen and (max-width:435px){
+    .header{
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+    } .productBtnText{
+        display: none;
+    } .langBoxOpen{
+        display: none;
+    } .adminText{
+        display: none;
+    } .avatarAdmin > img{
+        width: 100%;
+        height: 100%;
+    } .btn{
+        margin-right:-5%;
+        width: 100%;
+    }
+}

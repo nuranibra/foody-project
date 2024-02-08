@@ -1,0 +1,324 @@
+@import url(./../../styles/font/font.css);
+
+.box {
+    background-color: #1E1E30;
+    height: 100vh;
+}
+
+.containBox {
+    margin: 2%;
+    display: flex;
+    gap: 2%;
+    height: 75%;
+}
+
+.navBoxInd {
+    height: auto;
+    width: 100%;
+    border-radius: 14px;
+    background-color: #C74FEB;
+}
+
+.navDiv {
+    height: 100%;
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.containerDiv {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.container {
+    display: flex;
+    border-radius: 14px;
+    background-color: #27283C;
+    height: 95%;
+    width: 50%;
+}
+
+.containerBoxChild {
+    display: flex;
+    gap: 10px;
+    height: 100%;
+}
+
+.containerText {
+    color: #C7C7C7;
+    font-family: Roboto;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    /* 120% */
+    letter-spacing: 0.2px;
+}
+
+.containerChildText {
+    color: #a3a3a3;
+    font-family: Roboto;
+    font-size: 10px;
+}
+
+.uploadBoxText {
+    display: flex;
+    flex-direction: column;
+    padding: 2%;
+    gap: 5px;
+}
+
+.btnCloseProduct {
+    background-color: #cb6fe7;
+    margin: 2%;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.addProdText {
+    color: #fff;
+    font-family: Roboto;
+    font-size: 17px;
+    width: 35%;
+}
+
+.ehmed {
+    color: #fff;
+    font-family: Roboto;
+    font-size: 15px;
+}
+
+.uploadBox {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.formImageBox {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    margin: 1%;
+    align-items: center;
+}
+
+.formImg {
+    background-color: #2d2d42;
+    width: 60%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1%;
+    border-radius: 10px;
+    border: 3px dashed #212136;
+    cursor: pointer;
+}
+
+.imageAdd {
+    width:30%;
+    height: 100px;
+}
+
+.addProdBox {
+    margin-top: 2%;
+    display: flex;
+    flex-direction: column;
+}
+
+.formTextBox {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.formTextBox>form {
+    display: flex;
+    flex-direction: column;
+    background-color: #2d2d42;
+    border-radius: 10px;
+    width: 60%;
+    margin: 2%;
+}
+
+.formInpDiv {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin: 2%;
+}
+
+.inpAdd {
+    background-color: #27283C;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    color: #fff;
+    font-family: Roboto;
+}
+
+.label {
+    font-family: Roboto;
+    font-size: 15px;
+    color: #fff;
+}
+
+.btnBox {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btnChildBoxCancel,
+.btnChildBoxCreate {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    align-self: center;
+}
+
+.cancelBtn,
+.createBtn {
+    width: 100%;
+    color: #fff;
+    font-family: Roboto;
+    cursor: pointer;
+}
+
+.btnChildBoxCancel {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.createBtn {
+    background-color: #C74FEB;
+    margin-right: 10px;
+    border: none;
+    border-radius: 10px;
+    height: 100%;
+    padding: 10px 15px;
+}
+
+.cancelBtn {
+    background-color: #393952;
+    border: none;
+    border-radius: 10px;
+    height: 100%;
+    padding: 10px 15px;
+    margin-left: 10px;
+}
+
+.completedText {
+    font-family: Roboto;
+    color: #000;
+}
+
+.hamburgerBox {
+    display: none;
+}
+
+.indBoxUpload {
+    width: 50%;
+    height:102vh;
+    position:absolute;
+    right:0;
+    top:0;
+    background-color:#1E1E30;
+    transition:calc(0.5s)
+}
+
+.messageBox{
+    width: 20%;
+}
+
+@media only screen and (max-width:435px) {
+    .containBox {
+        height: 95%;
+    }
+
+    .navDiv {
+        display: none;
+    }
+
+    .containerDiv {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .containerBoxChild {
+        width: 97%;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        margin-bottom: 20px;
+    }
+
+    .container {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .box {
+        height: 150vh;
+    }
+
+    .containerText {
+        font-size: 15px;
+    }
+
+    .hamburgerBox {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        align-self: center;
+        height: 100%;
+        gap: 2px
+    }
+
+    .hamburger {
+        height: 2px;
+        width: 20px;
+        background-color: #fff;
+    }
+
+    .indBoxUpload {
+        width: 100%;
+        height: 150vh;
+    }
+
+    .addProdText{
+        font-size:15px;
+    }
+
+    .ehmed{
+        font-size:13px;
+    }
+
+    .uploadBoxText > h3{
+        font-size:14px;
+    }
+
+    .uploadBoxText, .addProdText{
+        width: 90%;
+    }
+
+    .formTextBox{
+        margin-top:5%;
+        margin-bottom:5%;
+    }
+
+    .formTextBox > form{
+        padding:2%;
+        width: 100%;
+    }
+
+    .messageBox{
+        width: 50%;
+    }
+}

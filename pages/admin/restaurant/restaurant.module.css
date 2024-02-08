@@ -1,0 +1,276 @@
+@import url(./../../../styles/font/font.css);
+@import url(./../../admin/index.module.css);
+
+.box{
+    background-color: #1E1E30;
+    height: 120vh;
+}
+
+.leftNav{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.childBox{
+    display: flex;
+    flex-direction: row;
+    margin:2%;
+}
+
+.navDiv{
+    height:80vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 15%;
+}
+
+.main{
+    width: 100%;
+    margin:0.5%;
+}
+
+.btnRestDiv{
+    display: flex;
+    width: 50%;
+    justify-content: flex-end;
+    gap:10px;
+}
+
+.headerMain{
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 14px;
+    background-color: #27283C;
+    align-items: center;
+    padding:2%;
+    color: rgba(242, 242, 242, 0.87);
+    font-family: Roboto;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 21px; /* 105% */
+    letter-spacing: 0.1px;
+}
+
+.btnRest{
+    border-radius: 14px;
+    border: 2px solid #C035A2;
+    background: #C035A2;
+    box-shadow: 0px 4px 4px 0px rgba(39, 174, 96, 0.20);
+    color: #FFF;
+    text-align: center;
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 21px; /* 150% */
+    letter-spacing: 0.25px;
+    height: 30px;
+    width: 150px;
+    padding: 1%;
+    cursor:pointer;
+}
+
+.selectBtn{
+    border-radius: 14px;
+    background: #5A5B70;
+    height: 30px;
+    width: 150px;
+    border:none;
+    color: var(--Gray-6, #F2F2F2);
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 171.429% */
+    letter-spacing: 0.14px;
+}
+
+.mainBox{
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+.notFoundMessage{
+    font-size:24px;
+    color:#fff;
+    font-family: Roboto;
+}
+
+.openRest{
+    position: absolute;
+    z-index: 1;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 120vh;
+    background-color: rgba(0, 0, 0, 0.635);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.openRestInd{
+    top:0;
+    right:0;
+    width: 50%;
+    height: 120vh;
+    background-color: #27283C;
+    padding: 1%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap:15px;
+}
+
+.addText{
+    font-family: Roboto;
+    color:#fff;
+}
+
+.imageUploadText{
+    font-family: Roboto;
+    color:#fff;
+}
+
+.btnOpenBox{
+    width: 100%;
+    display: flex;
+    gap:10px;
+    justify-content: space-between;
+}
+
+.cancelBtn, .createBtn{
+    width: 50%;
+    height: 30px;
+}
+
+.oneRest{
+    display: flex;
+    border-radius: 5px;
+    padding:10px;
+    background: #FFF;
+    box-shadow: 0px 4px 4px 0px rgba(57, 57, 57, 0.25);
+    height: 20%;
+}
+
+.textOneRest{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-left:10px;
+}
+
+.restName{
+    color: #1E1E30;
+    font-family: Roboto;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 133.333% */
+    letter-spacing: 0.18px;
+}
+
+.categoryRest{
+    color: var(--Gray-3, #828282);
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px; /* 171.429% */
+    letter-spacing: 0.14px;
+}
+
+.btnBoxRest{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-around;
+    margin-left:10px;
+}
+
+.btnDelete, .renameBtn{
+    background:none;
+    border:none;
+    cursor: pointer;
+}
+
+.trashBox{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.635);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.trashInd{
+    width: 30%;
+    height: 30%;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+    padding: 2%;
+    box-sizing: border-box;
+}
+
+.updateRest{
+    width: 50%;
+    height: 100%;
+    background-color: #1E1E30;
+}
+
+.restImage{
+    width: 150px;
+    height: 100px;
+}
+
+@media only screen and (max-width:435px){
+    .navDiv{
+        display: none;
+    }.btnRestDiv{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    } .selectBtn{
+        display: none;
+    } .headerMain{
+        display: flex;
+        flex-direction: column;
+    } .btnRest{
+        width: 100%;
+        border-radius: 5px;
+    } .openRestInd{
+        width: 100%;
+        z-index: 4;
+    } .openRest{
+        z-index: 3;
+    } .mainBox{
+        width: 100%;
+        justify-content: center;
+    } .restImage{
+        width: 100px;
+        height: 60px;
+    } .oneRest{
+        width: 100%;
+        height: 40%;
+        padding: 1%;
+    } .btnBoxRest{
+        display: flex;
+        flex-direction: row;
+    } .textOneRest{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        margin-left:10px;
+    }
+}

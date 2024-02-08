@@ -1,0 +1,294 @@
+@import url(./../../../styles/font/font.css);
+
+.box{
+    background-color:#1E1E30;
+    height: 110vh;
+}
+
+.mainBox{
+    display: flex;
+    margin:2%;
+    gap:20px;
+}
+
+.floatNavBox{
+    width: 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    height: 80vh;
+}
+
+.headerMain{
+    background-color: #27283C;
+    width: 100%;
+    border-radius: 15px;
+    padding:2%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    color: rgba(242, 242, 242, 0.87);
+    font-family: Roboto;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 21px; /* 105% */
+    letter-spacing: 0.1px;
+}
+
+.mainContainer{
+    width: 85%;
+}
+
+.addBtn{
+    border-radius: 14px;
+    border: 2px solid #C035A2;
+    background: #C035A2;
+    box-shadow: 0px 4px 4px 0px rgba(39, 174, 96, 0.20);
+    color: #FFF;
+    text-align: center;
+    font-family: Roboto;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 21px; /* 150% */
+    letter-spacing: 0.25px;
+}
+
+.mainChild{
+    background-color: #fff;
+    width: 100%;
+    margin-left:auto;
+    margin-right: auto;
+    margin-top:2%;
+    border-radius: 15px;
+    min-height: 60vh;
+    max-height: 60vh;
+    box-sizing: border-box;
+}
+
+.main{
+    overflow: scroll;
+    width: 100%;
+}
+
+.notFoundMessage{
+    width: 100%;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    font-family: Roboto;
+    font-size:20px;
+}
+
+.addMainBox{
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.635);
+    display: flex;
+    justify-content: flex-end;
+}
+
+.addMainInd{
+    background-color:#1E1E30;
+    width: 50%;
+    height: 100%;
+    top:0;
+    right: 0;
+    padding:1%;
+    box-sizing: border-box;
+}
+
+.closeIcon{
+    background-color: #C035A2;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-bottom:2%;
+}
+
+.textCategory{
+    font-size:20px;
+    font-family: Roboto;
+    color:#fff;
+}
+
+.btnBox{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap:10px;
+    margin-top:5%;
+}
+
+.cancelBtn, .createBtn{
+    width: 50%;
+    height: 30px;
+    border-radius: 10px;
+    border:none;
+    color: #FFF;
+    text-align: center;
+    font-family: Roboto;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 21px; /* 116.667% */
+    letter-spacing: 0.25px;
+}
+
+.cancelBtn{
+    background: #43445A;
+}
+
+.createBtn{
+    background: #C035A2;
+}
+
+.headTable{
+    display: flex;
+    padding:2%;
+    font-family: Roboto;
+    border-bottom: 1px solid #ccc;
+}
+
+.oneStyle{
+    font-family: Roboto;
+    padding:2%;
+    box-sizing: border-box;
+    border-bottom:1px solid #ccc
+}
+
+.deleteBox{
+    padding: 2%;
+    display: flex;
+    box-sizing: border-box;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+}
+
+.deleteHeadText{
+    color: #000;
+    font-family: "Open Sans";
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px; /* 85.714% */
+}
+
+.textBoxDelete{
+    width: 80%;
+    margin-top:2%;
+}
+
+.textBoxDelete > p{
+    color: var(--Gray-2, #4F4F4F);
+    text-align: center;
+    font-family: "Open Sans";
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 133.333% */
+}
+
+.deleteBtnBox{
+    width: 80%;
+    display: flex;
+    gap:5px;
+}
+
+.deleteBtnBox > button{
+    width: 50%;
+    cursor: pointer;
+}
+
+.cancelBtnDelete{
+    border-radius: 4px;
+    border: 2px solid var(--Gray-4, #BDBDBD);
+    background: var(--white, #FFF);
+    color: var(--Gray-4, #BDBDBD);
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px; /* 125% */
+    letter-spacing: 0.25px;
+}
+
+.deleteBtnDelete{
+    border-radius: 4px;
+    background: var(--mainRed, #D63626);
+    color: #FFF;
+    font-family: Roboto;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 20px; /* 125% */
+    letter-spacing: 0.25px;
+    border:none;
+}
+
+.listImg{
+    width: 90px;
+    height: 70px;
+    border-radius: 10px;
+}
+
+.deleteBox{
+    width: 30%;
+    height: 30%;
+}
+
+.hammerBox{
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100%;
+    height: 110%;
+    background-color: rgba(0, 0, 0, 0.635);
+    z-index: 100;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.hammerInd{
+    background-color: #1E1E30;
+    width: 50%;
+    height: 100%;
+    padding: 2%;
+    box-sizing: border-box;
+}
+
+.closeButton{
+    border:none;
+    background:none;
+}
+
+@media only screen and (max-width:435px){
+    .floatNavBox{
+        display: none;
+    }
+    .mainContainer{
+        width: 100%;
+    } .mainChild{
+        font-size: 10px;
+    } .deleteBox{
+        width: 90%;
+        height: 25%;
+    } .deleteHeadText{
+        font-size:20px;
+        text-align: center;
+    } .addMainInd{
+        width: 100%;
+        z-index: 4;
+    } .addMainBox{
+        z-index: 3;
+    }  .listImg{
+        width: 40px;
+        height: 40px;
+    }
+}

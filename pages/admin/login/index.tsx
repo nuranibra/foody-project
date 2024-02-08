@@ -1,28 +1,64 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from './adminLogin.module.css'
 import Logo from "../../../components/logo/logo";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import Head from "next/head";
+import axios from "axios";
+import engLang from './../../../langJson/engJson.json';
+import azeLang from './../../../langJson/azeJson.json';
+import rusLang from './../../../langJson/rusJson.json';
+import { ColorRing, Oval, RotatingLines, TailSpin } from "react-loader-spinner";
 
 export default function AdminLogin () {
-
+    const router = useRouter();
     const [langURL, setLangURL] = useState('https://flagdownload.com/wp-content/uploads/Flag_of_United_Kingdom_Flat_Round-128x128.png')
     const [langOpen, setLangOpen] = useState(false)
+    const [lang, setLang] = useState(engLang);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        if(router.locale == "en"){
+            setLang(engLang)
+            setLangURL('https://flagdownload.com/wp-content/uploads/Flag_of_United_Kingdom_Flat_Round-128x128.png')
+        } else if(router.locale == "az"){
+            setLang(azeLang)
+            setLangURL("https://flagdownload.com/wp-content/uploads/Flag_of_Azerbaijan_Flat_Round-128x128.png")
+        } else if(router.locale == "ru"){
+            setLang(rusLang)
+            setLangURL("https://flagdownload.com/wp-content/uploads/Flag_of_Russia_Flat_Round-128x128.png")
+        }
+    }, [router])
+    
     var langArr = [
-        <img className={style.langPhoto} src="https://flagdownload.com/wp-content/uploads/Flag_of_United_Kingdom_Flat_Round-128x128.png" alt="lang_eng" onClick={() => {
+        <Link href={'/admin/login'} locale="en">
+            <img className={style.langPhoto} src="https://flagdownload.com/wp-content/uploads/Flag_of_United_Kingdom_Flat_Round-128x128.png" alt="lang_eng" onClick={() => {
             setLangURL("https://flagdownload.com/wp-content/uploads/Flag_of_United_Kingdom_Flat_Round-128x128.png")
             setLangOpen(false)
-        }}/>,
-        <img className={style.langPhoto} src="https://flagdownload.com/wp-content/uploads/Flag_of_Azerbaijan_Flat_Round-128x128.png" alt="lang_aze" onClick={() => {
+        }}/>
+        </Link>,
+        <Link href={'/admin/login'} locale="az">
+            <img className={style.langPhoto} src="https://flagdownload.com/wp-content/uploads/Flag_of_Azerbaijan_Flat_Round-128x128.png" alt="lang_aze" onClick={() => {
             setLangURL("https://flagdownload.com/wp-content/uploads/Flag_of_Azerbaijan_Flat_Round-128x128.png")
             setLangOpen(false)
-        }}/>,
-        <img className={style.langPhoto} src="https://flagdownload.com/wp-content/uploads/Flag_of_Russia_Flat_Round-128x128.png" alt="lang_rus" onClick={() => {
+        }}/>
+        </Link>,
+        <Link href={'/admin/login'} locale="ru">
+            <img className={style.langPhoto} src="https://flagdownload.com/wp-content/uploads/Flag_of_Russia_Flat_Round-128x128.png" alt="lang_rus" onClick={() => {
             setLangURL("https://flagdownload.com/wp-content/uploads/Flag_of_Russia_Flat_Round-128x128.png")
             setLangOpen(false)
+            console.log(router.locale)
         }}/>
+        </Link>
     ]
 
     return(
         <>
+        <Head>
+            <title>{lang.admin} | {lang["sign-in"]}</title>
+        </Head>
             <section className={style.box}>
                 <header className={style.header}>
                     <Logo />
@@ -32,12 +68,40 @@ export default function AdminLogin () {
                         {/* inputs container */}
                         <div className={style.inpBox}>
                             <div style={{width:"100%"}}>
-                                <h2 className={style.inpBoxText}>Welcome Admin</h2>
+                                <h2 className={style.inpBoxText}>{lang.welcome} {lang.admin}</h2>
                             </div>
-                            <form className={style.inpBoxInd}>
-                                <input type="text" placeholder="Username" className={style.inp}/>
-                                <input type="password" placeholder="Password" className={style.inp}/>
-                                <button type="submit" className={style.btn}>sign in</button>
+                            <form className={style.inpBoxInd} onSubmit={(e) => {
+                                e.preventDefault()
+                            }}>
+                                <input type="text" placeholder={lang.email} className={style.inp} onChange={(e) => {
+                                    setEmail(e.target.value)
+                                }}/>
+                                <input type="password" placeholder={lang.password} className={style.inp} onChange={(e) => {
+                                    setPassword(e.target.value)
+                                }}/>
+                                <button type="submit" className={style.btn} style={{display:"flex", justifyContent:"center", alignItems:"center"}} onClick={() => {
+                                    setLoading(true)
+                                    axios.post("http://localhost:3000/api/auth/signin", {
+                                        email,
+                                        password
+                                    }).then(res => {
+                                        console.log(res)
+                                        window.localStorage.setItem("access-token", res.data.user.access_token)
+                                        window.location.href = "/admin"
+                                    }).catch(err => {
+                                        alert("hata")
+                                    })
+                                }}>{loading ? <RotatingLines
+                                    visible={true}
+                                    height="40"
+                                    width="40"
+                                    color="black"
+                                    strokeWidth="3"
+                                    animationDuration="0.50"
+                                    ariaLabel="rotating-lines-loading"
+                                    wrapperStyle={{}}
+                                    wrapperClass=""
+                                    />: lang["sign-in"]}</button>
                             </form>
                         </div>
                         {/* photo container */}
