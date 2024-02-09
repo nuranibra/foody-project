@@ -21,17 +21,18 @@ export default function Product () {
     const [searchCategory, setSearchCategory] = useState("")
     const [trashOpen, setTrashOpen] = useState(false)
     const [openHammer, setOpenHammer] = useState(false)
-    const [imageUpdate, setImageUpdate] = useState(null)
+    const [imageUpdate, setImageUpdate] = useState("")
     const [restData, setRestData] = useState([])
     const [nameUpdate, setNameUpdate] = useState("");
     const [descriptionUpdate, setDescriptionUpdate] = useState("");
     const [priceUpdate, setPriceUpdate] = useState(0);
     const [selectedRest, setSelectedRest] = useState("")
     const [fileName, setFileName] = useState("adsa");
+    const [product, setProduct] = useState([])
+    const [restuarants, setRestuarants] = useState([])
     const [winOpen, setWinOpen] = useState(false);
     const [errorOpen, setErrorOpen] = useState(false);
     const [deleteItem, setDeleteItem] = useState("");
-    const [hummerData, setHummerData] = useState({});
     const [lang, setLang] = useState(engLang);
 
     useEffect(() => {
@@ -55,9 +56,6 @@ export default function Product () {
           setRestData(res.data.result.data)
         })
       }, [])
-
-    const [product, setProduct] = useState([])
-    const [restuarants, setRestuarants] = useState([])
 
     useEffect(() => {
         axios.get("http://localhost:3000/api/products")
@@ -147,14 +145,18 @@ export default function Product () {
                                                 <h3 className={styleInd.addProdText}>{lang["update-product"]}</h3>
                                             </div>
                                             <div className={styleInd.formImageBox}>
-                                                <form onClick={() => document.querySelector(".input-file-update").click()} className={styleInd.formImg}>
-                                                <input type="file" accept="image/*" className="input-file-update" hidden onChange={({target: {files}}) => {
-                                                    files[0] && setFileName(files[0].name)
-                                                    if(files){
-                                                    setImageUpdate(URL.createObjectURL(files[0]));
-                                                    }
-                                                }}/><IoCloudUploadOutline color={"#fff"} size={30}/>
-                                                </form><img src={imageUpdate ? imageUpdate : hummerData.img_url} alt="photo" className={styleInd.imageAdd}/>
+                                            <form onClick={(event:any) => event.target.querySelector(".input-file-update")?.click()} className={styleInd.formImg}>
+                                            <input type="file" accept="image/*" className=".input-file-update" hidden onChange={(e) => {
+                                            var filesi = e.target.files
+                                            if (filesi && filesi.length > 0) {
+                                                const file = filesi[0]
+                                                if(file instanceof File){
+                                                    setImageUpdate(URL.createObjectURL(file));
+                                                }
+                                            }
+                                        }}/><IoCloudUploadOutline color={"#fff"} size={30}/>
+                                        </form>
+                                                <img src={imageUpdate} alt="photo" className={styleInd.imageAdd}/>
                                             </div>
                                             </div>
                                             <div className={styleInd.addProdBox}>
@@ -165,19 +167,19 @@ export default function Product () {
                                                 <form>
                                                     <div className={styleInd.formInpDiv}>
                                                     <label className={styleInd.label} htmlFor="name">{lang.name}</label>
-                                                    <input type="text" placeholder={lang.name} value={nameUpdate.length < 1 ? hummerData.name : nameUpdate} id="name" className={styleInd.inpAdd} onChange={(e) => {
+                                                    <input type="text" placeholder={lang.name} value={nameUpdate} id="name" className={styleInd.inpAdd} onChange={(e) => {
                                                         setNameUpdate(e.target.value)
                                                     }}/>
                                                     </div>
                                                     <div className={styleInd.formInpDiv}>
                                                     <label className={styleInd.label} htmlFor="description">{lang.desciprt}</label>
-                                                    <input type="text" placeholder={lang.desciprt} value={descriptionUpdate.length < 1 ? hummerData.description : descriptionUpdate} id="description" className={styleInd.inpAdd} onChange={(e) => {
+                                                    <input type="text" placeholder={lang.desciprt} value={descriptionUpdate} id="description" className={styleInd.inpAdd} onChange={(e) => {
                                                         setDescriptionUpdate(e.target.value);
                                                     }}/>
                                                     </div>
                                                     <div className={styleInd.formInpDiv}>
                                                     <label className={styleInd.label} htmlFor="price">{lang.price}</label>
-                                                    <input type="number" placeholder={lang.price} value={priceUpdate < 1 ? hummerData.price : priceUpdate} id="price" className={styleInd.inpAdd} onChange={(e:any) => {
+                                                    <input type="number" placeholder={lang.price} value={priceUpdate} id="price" className={styleInd.inpAdd} onChange={(e:any) => {
                                                         setPriceUpdate(e.target.value);
                                                     }}/>
                                                     </div>
@@ -200,7 +202,7 @@ export default function Product () {
                                                 <button className={styleInd.cancelBtn} onClick={() => {
                                                 setNameUpdate("");
                                                 setDescriptionUpdate("");
-                                                setImageUpdate(null);
+                                                setImageUpdate("");
                                                 setPriceUpdate(0);
                                                 setOpenHammer(false)
                                                 }}>{lang.cancel}</button>
@@ -260,7 +262,6 @@ export default function Product () {
                                             <div>
                                                 <button style={{background:"none", border:"none", cursor:"pointer"}} onClick={() => {
                                                     setDeleteItem(item.id)
-                                                    console.log(item.name)
                                                     // axios.delete(`http://localhost:3000/api/products/${item.id}`)
                                                     //             .then(res => {
                                                     //                 setTrashOpen(false)
@@ -270,7 +271,10 @@ export default function Product () {
                                                     setTrashOpen(true)
                                                 }}><IoTrashOutline size={20} color="red"/></button>
                                                 <button style={{background:"none", border:"none", cursor:"pointer"}} onClick={() => {
-                                                    setHummerData(item)
+                                                    setNameUpdate(item.name)
+                                                    setDescriptionUpdate(item.description)
+                                                    setPriceUpdate(item.price)
+                                                    setImageUpdate(item.img_url)
                                                     setOpenHammer(true)
                                                 }}><IoHammerOutline size={20}/></button>
                                             </div>

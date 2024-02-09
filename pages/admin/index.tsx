@@ -10,7 +10,7 @@ import AdminFootEaCamp from "../../components/footer/adminFooter/adminEaCampFoot
 import { Doughnut, Line } from "react-chartjs-2";
 import 'chart.js/auto'
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import rusLang from "./../../langJson/rusJson.json";
 import azeLang from './../../langJson/azeJson.json';
@@ -22,7 +22,7 @@ const AdminDashboard: NextPage = () => {
   const [name , setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
-  const [image, setImage] = useState(null)
+  const [image, setImage] = useState("")
   const [restaurantSelect , setRestaurantSelect] = useState("");
   //input states 
 
@@ -32,23 +32,17 @@ const AdminDashboard: NextPage = () => {
   const [errorOpen, setErrorOpen] = useState(false);
   const [winOpen ,setWinOpen] = useState(false);
   const [openHamburger, setOpenHamburger] = useState(false);
-  // const [lineData, setLineData] = useState([]);
-  var lineData: any = []
-  const [rgb, setRgb] = useState([]);
-  // const [restNames, setRestNames] = useState([]);
-  // const [restValue, setRestValue] = useState([]);
+  // const [rgb, setRgb] = useState([]);
+  const router = useRouter();
+  const [langURL, setLangURL] = useState('https://flagdownload.com/wp-content/uploads/Flag_of_United_Kingdom_Flat_Round-128x128.png')
+  const [langOpen, setLangOpen] = useState(false)
+  const [lang, setLang] = useState(engLang)
   useEffect(() => {
     axios.get('http://localhost:3000/api/restuarants')
     .then((res:any) => {
       setRestData(res.data.result.data)
     })
   }, [])
-
-    
-    const router = useRouter();
-    const [langURL, setLangURL] = useState('https://flagdownload.com/wp-content/uploads/Flag_of_United_Kingdom_Flat_Round-128x128.png')
-    const [langOpen, setLangOpen] = useState(false)
-    const [lang, setLang] = useState(engLang)
 
     useEffect(() => {
       if(router.locale == "en"){
@@ -103,18 +97,18 @@ const AdminDashboard: NextPage = () => {
     }
   }, [])
 
-  useEffect(() => {
-    var rgbArr:string[] = [];
-      for(let i = 0; i < restData.length; i++){
-        var oneRgb:number = Math.floor(Math.random() * 255) - 1;
-        var secondRgb:number = Math.floor(Math.random() * 255) - 1;
-        var thirdRgb:number = Math.floor(Math.random() * 255) - 1;
-        rgbArr.push(`rgb(${oneRgb}, ${secondRgb}, ${thirdRgb})`);
-      }
-      setRgb(rgbArr);
-  }, [restData])
+  // useEffect(() => {
+  //   var rgbArr:SetStateAction<string[]>;
+  //     for(let i = 0; i < restData.length; i++){
+  //       var oneRgb:number = Math.floor(Math.random() * 255) - 1;
+  //       var secondRgb:number = Math.floor(Math.random() * 255) - 1;
+  //       var thirdRgb:number = Math.floor(Math.random() * 255) - 1;
+  //       rgbArr.push(`rgb(${oneRgb}, ${secondRgb}, ${thirdRgb})`);
+  //     }
+  //     setRgb(rgbArr);
+  // }, [restData])
 
-  console.log(rgb)
+  // console.log(rgb)
   console.log(openAddProduct)
   console.log(restData)
 
@@ -160,14 +154,17 @@ const AdminDashboard: NextPage = () => {
                 <h4 className={styleInd.ehmed}>{lang["product-upload-image-text"]}</h4>
               </div>
               <div className={styleInd.formImageBox}>
-                <form onClick={() => document.querySelector(".input-file").click()} className={styleInd.formImg}>
-                  <input type="file" accept="image/*" className="input-file" hidden onChange={({target: {files}}) => {
-                    files[0] && setFileName(files[0].name)
-                    if(files){
-                      setImage(URL.createObjectURL(files[0]));
-                    }
-                  }}/><IoCloudUploadOutline color={"#fff"} size={30}/>
-                </form>
+              <form onClick={(event:any) => event.target.querySelector(".input-files-ind")?.click()} className={styleInd.formImg}>
+                <input type="file" accept="image/*" className="input-files-ind" hidden onChange={(e) => {
+                var filesi = e.target.files
+                if (filesi && filesi.length > 0) {
+                const file = filesi[0]
+                if(file instanceof File){
+                  setImage(URL.createObjectURL(file));
+                  }
+                }
+                }}/><IoCloudUploadOutline color={"#fff"} size={30}/>
+              </form>
                 {image ? <img src={image} alt="photo" className={styleInd.imageAdd}/> : ''}
               </div>
             </div>
@@ -214,7 +211,7 @@ const AdminDashboard: NextPage = () => {
                 <button className={styleInd.cancelBtn} onClick={() => {
                   setName("");
                   setDescription("");
-                  setImage(null);
+                  setImage("");
                   setPrice(0);
                   setOpenAddProduct(false)
                 }}>{lang.cancel}</button>
@@ -301,14 +298,13 @@ const AdminDashboard: NextPage = () => {
                   <h4 className={styleInd.containerText}>{lang.orders}</h4>
                 </div>
                 <div style={{display:"flex", justifyContent:"center", alignItems:"center", alignSelf:"center", width:"80%", height:"80%"}}>
-                  {restData.length > 1 ? <div style={{margin:'2%'}}>
+                  {restData.length >= 1 ? <div style={{margin:'2%'}}>
                     <Doughnut data={{
                       labels: restData?.map((rest:any) => rest.name),
                       datasets: [
                         {
                           label:'count',
-                          data: restData?.map((rest:any) => rest.delivery_min),
-                          backgroundColor:rgb,
+                          data: restData?.map((rest:any) => rest.delivery_min)
                         },
                       ],
                     }}/>

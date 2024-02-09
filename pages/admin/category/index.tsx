@@ -18,8 +18,7 @@ export default function Categoy () {
     const router = useRouter();
     const [categoryData, setCategoryData] = useState([])
     const [openCategory, setOpenCategory] = useState(false);
-    const [fileName, setFileName] = useState("Not choose image");
-    const [imageProd, setImageProd] = useState(null);
+    const [imageProd, setImageProd] = useState("");
     const [nameCategory, setNameCategory] = useState("");
     const [slugCategory, setSlugCategory] = useState("");
     const [win, setWin] = useState(false);
@@ -27,10 +26,11 @@ export default function Categoy () {
     const [openTrash, setOpenTrash] = useState(false)
     const [lang, setLang] = useState(engLang);
     const [openHammer, setOpenHammer] = useState(false);
-    const [imgUpdate, setImgUpdate] = useState(null);
+    const [imgUpdate, setImgUpdate] = useState("");
     const [titleUpdate, setTitleUpdate] = useState("");
     const [descriptionUpdate, setDescriptionUpdate] = useState("");
-    const [hummerId, setHummerId] = useState({})
+    const [hummerId, setHummerId] = useState("");
+    const [hummerImg, setHummerImg] = useState("");
 
     useEffect(() => {
         if(!localStorage.getItem("access-token")){
@@ -101,16 +101,18 @@ export default function Categoy () {
                                 </div>
                                 <div>
                                     <div className={styleInd.formImageBox}>
-                                        <form onClick={() => document.querySelector(".input-files-category-update").click()} className={styleInd.formImg}>
+                                    <form onClick={(event:any) => event.target.querySelector(".input-files-category-update")?.click()} className={styleInd.formImg}>
                                         <input type="file" accept="image/*" className="input-files-category-update" hidden onChange={(e) => {
-                                            var filesi = e.target.files;
-                                            filesi[0] && setFileName(filesi[0].name)
-                                            if(filesi){
-                                            setImgUpdate(URL.createObjectURL(filesi[0]));
+                                            var filesi = e.target.files
+                                            if (filesi && filesi.length > 0) {
+                                                const file = filesi[0]
+                                                if(file instanceof File){
+                                                    setImgUpdate(URL.createObjectURL(file));
+                                                }
                                             }
                                         }}/><IoCloudUploadOutline color={"#fff"} size={30}/>
                                         </form>
-                                        <img src={imgUpdate ? imgUpdate : hummerId.img_url} alt="photoProd" className={styleInd.imageAdd}/>
+                                        <img src={imgUpdate ? imgUpdate : hummerImg} alt="photoProd" className={styleInd.imageAdd}/>
                                     </div>
                                 </div>
                             </div>
@@ -138,11 +140,11 @@ export default function Categoy () {
                                     <button className={catStyle.cancelBtn} onClick={() => {
                                         setTitleUpdate("")
                                         setDescriptionUpdate("")
-                                        setImgUpdate(null)
+                                        setImgUpdate("")
                                         setOpenHammer(false)
                                     }}>{lang.cancel}</button>
                                     <button className={catStyle.createBtn} onClick={() => {
-                                        axios.put(`http://localhost:3000/api/category/${hummerId.id}`, {
+                                        axios.put(`http://localhost:3000/api/category/${hummerId}`, {
                                             name:titleUpdate,
                                             slug:descriptionUpdate,
                                             img_url:imgUpdate
@@ -174,12 +176,14 @@ export default function Categoy () {
                                 </div>
                                 <div>
                                     <div className={styleInd.formImageBox}>
-                                        <form onClick={() => document.querySelector(".input-files-category").click()} className={styleInd.formImg}>
+                                    <form onClick={(event:any) => event.target.querySelector(".input-files-category")?.click()} className={styleInd.formImg}>
                                         <input type="file" accept="image/*" className="input-files-category" hidden onChange={(e) => {
-                                            var filesi = e.target.files;
-                                            filesi[0] && setFileName(filesi[0].name)
-                                            if(filesi){
-                                            setImageProd(URL.createObjectURL(filesi[0]));
+                                            var filesi = e.target.files
+                                            if (filesi && filesi.length > 0) {
+                                                const file = filesi[0]
+                                                if(file instanceof File){
+                                                    setImageProd(URL.createObjectURL(file));
+                                                }
                                             }
                                         }}/><IoCloudUploadOutline color={"#fff"} size={30}/>
                                         </form>
@@ -211,7 +215,7 @@ export default function Categoy () {
                                     <button className={catStyle.cancelBtn} onClick={() => {
                                         setNameCategory("")
                                         setSlugCategory("")
-                                        setImageProd(null)
+                                        setImageProd("")
                                         setOpenCategory(false)
                                     }}>{lang.cancel}</button>
                                     <button className={catStyle.createBtn} onClick={() => {
@@ -269,10 +273,11 @@ export default function Categoy () {
                                         <h3 style={{width:"20%"}}>{item.slug}</h3>
                                         <div style={{display:"flex", width:"20%", alignItems:"center"}}>
                                             <button style={{background:"none", border:"none"}}><IoTrashOutline color="red" style={{cursor:"pointer"}} className={catStyle.ioBtn} onClick={() => {
+                                                setHummerId(item.id)
                                                 setOpenTrash(true)
                                             }}/></button>
                                             <button style={{background:"none", border:"none"}} onClick={() => {
-                                                setHummerId(item)
+                                                setHummerImg(item.img_url)
                                                 setOpenHammer(true)
                                             }}><IoHammerOutline  style={{cursor:"pointer"}} className={catStyle.ioBtn}/></button>
                                         </div>
@@ -287,7 +292,7 @@ export default function Categoy () {
                                                         setOpenTrash(false)
                                                     }}>{lang.cancel}</button>
                                                     <button className={catStyle.deleteBtnDelete} onClick={() => {
-                                                        axios.delete(`http://localhost:3000/api/category/${item.id}`)
+                                                        axios.delete(`http://localhost:3000/api/category/${hummerId}`)
                                                             .then(res => {
                                                                 setOpenTrash(false)
                                                             }).catch(err => {

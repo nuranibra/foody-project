@@ -76,11 +76,11 @@ export default function History () {
                                 <h3>{lang.edit}</h3>
                             </div>
                             <div className={historyStyle.listHistoryMain}>
-                                {history.map(order => (
+                                {history.map((order:any) => (
                                     <div className={historyStyle.listOne}>
                                         <h3>{order.id.split("").slice(0,4).join("")}...</h3>
                                         <h3>{order.customer_id.split("").slice(0,4).join("")}...</h3>
-                                        <h3>{new Date}</h3>
+                                        <h3>{new Date().toISOString()}</h3>
                                         <h3>{order.delivery_address}</h3>
                                         <h3>{order.amount}</h3>
                                         <h3>{order.payment_method == 0 ? "Card" : "Cash on delivery"}</h3>

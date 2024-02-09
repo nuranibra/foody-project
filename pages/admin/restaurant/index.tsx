@@ -28,12 +28,12 @@ export default function Restaurants () {
     const [address, setAddress] = useState("");
     const [categoryInp, setCategoryInp] = useState("");
     const [fileName, setFileName] = useState("Not choose image");
-    const [imageProd, setImageProd] = useState(null);
+    const [imageProd, setImageProd] = useState("");
     const [categoryData, setCategoryData] = useState([]);
     const [trashOpen, setTrashOpen] = useState(false);
     const [hammerOpen, setHammerOpen] = useState(false);
     const [updateName, setUpdateName] = useState("");
-    const [imageUpdate, setImageUpdata] = useState(null);
+    const [imageUpdate, setImageUpdata] = useState("");
     const [cuisineUpdate, setCuisineUpdate] = useState("");
     const [deliveryPriceUpdate,setDeliveryPriceUpdate] = useState(0);
     const [deliveryMinUpdate, setDeliveryMinUpdate] = useState(1);
@@ -41,9 +41,23 @@ export default function Restaurants () {
     const [trashId,setTrashId] = useState("");
     const [winOpen,setWinOpen] = useState(false);
     const [errorOpen, setErrorOpen] = useState(false);
-    const [hummerId,setHummerId] = useState({});
+    const [hummerId,setHummerId] = useState("");
     const [lang, setLang] = useState(engLang);
+    const [chooseCategory, setChooseCategory] = useState("")
+    const [filterData, setFilterData] = useState([])
+    const [chooseData, setChooseData] = useState(data)
 
+    useEffect(() => {
+        if(chooseCategory.length > 1){
+            setFilterData(data.filter((item:any) => {
+                return(item.category_id === chooseCategory)
+            }))
+        } else {
+            setData(data.filter((item:any) => {
+                return(item.category_id != chooseCategory)
+            }))
+        }
+    }, [chooseCategory])
 
     function handleChange (e:any) {
         setCategoryInp(e.target.value)
@@ -60,7 +74,7 @@ export default function Restaurants () {
         .then(res => {
             setData(res.data.result.data)
         }).catch(error => {
-            alert("hata oldu")
+            setErrorOpen(true)
         })
     }, [trashOpen, openRest])
 
@@ -69,9 +83,17 @@ export default function Restaurants () {
             .then(res => {
                 setCategory(res.data.result.data)
             }).catch(error => {
-                alert("categoryde hata oldu")
+                setErrorOpen(true)
             })
     }, [])
+
+    useEffect(() => {
+        if(filterData.length >= 1 && chooseCategory.length > 1){
+            setChooseData(filterData)
+        } else {
+            setChooseData(data)
+        }
+    }, [chooseCategory, data, filterData])
 
     useEffect(() => {
         if(router.locale == "en"){
@@ -127,15 +149,17 @@ export default function Restaurants () {
                             </div>
                             <div>
                                 <div className={styleInd.formImageBox}>
-                                    <form onClick={() => document.querySelector(".input-files").click()} className={styleInd.formImg}>
-                                    <input type="file" accept="image/*" className="input-files" hidden onChange={(e) => {
-                                        var filesi = e.target.files;
-                                        filesi[0] && setFileName(filesi[0].name)
-                                        if(filesi){
-                                        setImageProd(URL.createObjectURL(filesi[0]));
-                                        }
-                                    }}/><IoCloudUploadOutline color={"#fff"} size={30}/>
-                                    </form>
+                                    <form onClick={(event:any) => event.target.querySelector(".input-files-rest")?.click()} className={styleInd.formImg}>
+                                            <input type="file" accept="image/*" className="input-files-rest" hidden onChange={(e) => {
+                                            var filesi = e.target.files
+                                            if (filesi && filesi.length > 0) {
+                                                const file = filesi[0]
+                                                if(file instanceof File){
+                                                    setImageProd(URL.createObjectURL(file));
+                                                }
+                                            }
+                                        }}/><IoCloudUploadOutline color={"#fff"} size={30}/>
+                                        </form>
                                     {imageProd ? <img src={imageProd} alt="photoProd" className={styleInd.imageAdd}/> : ''}
                                 </div>
                             </div>
@@ -200,11 +224,10 @@ export default function Restaurants () {
                                     setCuisine("");
                                     setDeliveryMin(1);
                                     setDeliveryPrice(0);
-                                    setImageProd(null);
+                                    setImageProd("");
                                     setOpenRest(false)
                                 }}>{lang.cancel}</button>
                                 <button type="submit" className={styleInd.createBtn} onClick={() => {
-                                    console.log([name, categoryInp,imageProd,cuisine,address,deliveryMin,deliveryPrice])
                                     axios.post("http://localhost:3000/api/restuarants", {
                                         name,
                                         category_id:categoryInp,
@@ -239,10 +262,10 @@ export default function Restaurants () {
                             </div>
                             <div className={restStyle.btnRestDiv}>
                                 <div>
-                                    <select className={restStyle.selectBtn}>
-                                        <option onChange={(e) => {
-
-                                        }}>{lang.chooCate}</option>
+                                    <select className={restStyle.selectBtn} onChange={(e) => {
+                                        setChooseCategory(e.target.value)
+                                    }}>
+                                        <option>{lang.chooCate}</option>
                                         {category.map((item:any, index:number) => (
                                             <option key={index} value={item.id}>{item.name}</option>
                                         ))}
@@ -256,7 +279,7 @@ export default function Restaurants () {
                             </div>
                         </div>
                         <div className={restStyle.mainBox} style={data.length >= 1 ? {columnGap:"10px", flexWrap:"wrap",flexDirection:"row", padding:"1%", boxSizing:"border-box"} : {justifyContent:"center", alignItems:"center"}}>
-                            {data.length >= 1 ? data.map((rest:any) => (
+                            {data.length >= 1 ? chooseData.map((rest:any) => (
                                 <div className={restStyle.oneRest}>
                                     {trashOpen ? <section style={{width:"100%" , height:"100%", backgroundColor:"rgba(0,0,0,0.635)", position:"absolute", top:"0", left:"0", display:"flex", justifyContent:"center", alignItems:"center"}}>
                                                 <div className={styleProd.trashInd}>
@@ -293,16 +316,18 @@ export default function Restaurants () {
                                                     </div>
                                                     <div>
                                                         <div className={styleInd.formImageBox}>
-                                                            <form onClick={() => document.querySelector(".input-files-update").click()} className={styleInd.formImg}>
-                                                            <input type="file" accept="image/*" className="input-files-update" hidden onChange={(e) => {
-                                                                var filesil = e.target.files;
-                                                                filesil[0] && setFileName(filesil[0].name)
-                                                                if(filesil){
-                                                                    setImageUpdata(URL.createObjectURL(filesil[0]));
+                                                        <form onClick={(event:any) => event.target.querySelector(".input-files-update")?.click()} className={styleInd.formImg}>
+                                                            <input type="file" accept="image/*" className=".input-files-update" hidden onChange={(e) => {
+                                                            var filesi = e.target.files
+                                                            if (filesi && filesi.length > 0) {
+                                                                const file = filesi[0]
+                                                                if(file instanceof File){
+                                                                    setImageUpdata(URL.createObjectURL(file));
                                                                 }
-                                                            }}/><IoCloudUploadOutline color={"#fff"} size={30}/>
-                                                            </form>
-                                                            <img src={imageUpdate ? imageUpdate : hummerId.img_url} alt="photoUpdate" className={styleInd.imageAdd}/>
+                                                            }
+                                                        }}/><IoCloudUploadOutline color={"#fff"} size={30}/>
+                                                        </form>
+                                                            <img src={imageUpdate} alt="photoUpdate" className={styleInd.imageAdd}/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -316,19 +341,19 @@ export default function Restaurants () {
                                                                 <label htmlFor="name" className={styleInd.label}>{lang.name}</label>
                                                                 <input type="text" onChange={(e) => {
                                                                     setUpdateName(e.target.value);
-                                                                }} placeholder={lang.name} value={updateName.length < 0 ? hummer.name : updateName} id="name" className={styleInd.inpAdd}/>
+                                                                }} placeholder={lang.name} value={updateName} id="name" className={styleInd.inpAdd}/>
                                                             </div>
                                                             <div className={styleInd.formInpDiv}>
                                                                 <label htmlFor="cuisine" className={styleInd.label}>{lang.cuisine}</label>
                                                                 <input onChange={(e) => {
                                                                     setCuisineUpdate(e.target.value)
-                                                                }} type="text" value={cuisineUpdate.length < 0 ? hummerId.cuisine : cuisineUpdate} placeholder={lang.cuisine} id="cuisine" className={styleInd.inpAdd}/>
+                                                                }} type="text" value={cuisineUpdate} placeholder={lang.cuisine} id="cuisine" className={styleInd.inpAdd}/>
                                                             </div>
                                                             <div className={styleInd.formInpDiv}>
                                                                 <label htmlFor="deliveryPrice" className={styleInd.label}>{lang["delivery-price"]} $</label>
                                                                 <input type="number" onChange={(e) => {
                                                                     setDeliveryPriceUpdate(Number(e.target.value));
-                                                                }} value={deliveryPriceUpdate < 0 ? hummerId.delivery_price : deliveryPriceUpdate} placeholder={lang["delivery-price"]} id="deliveryPrice" className={styleInd.inpAdd}/>
+                                                                }} value={deliveryPriceUpdate} placeholder={lang["delivery-price"]} id="deliveryPrice" className={styleInd.inpAdd}/>
                                                             </div>
                                                             <div className={styleInd.formInpDiv}>
                                                                 <label htmlFor="delivery_min" className={styleInd.label}>{lang["delivery-min"]}</label>
@@ -340,13 +365,13 @@ export default function Restaurants () {
                                                                     } else {
                                                                         setDeliveryMinUpdate(e.target.value)
                                                                     }
-                                                                }} value={deliveryMinUpdate < 2 ? hummerId.delivery_min : deliveryMinUpdate} placeholder={lang["delivery-min"]} id="delivery_min" className={styleInd.inpAdd}/>
+                                                                }} value={deliveryMinUpdate} placeholder={lang["delivery-min"]} id="delivery_min" className={styleInd.inpAdd}/>
                                                             </div>
                                                             <div className={styleInd.formInpDiv}>
                                                                 <label htmlFor="address" className={styleInd.label}>{lang.address}</label>
                                                                 <input type="text" onChange={(e) => {
                                                                     setAddressUpdate(e.target.value);
-                                                                }} value={addressUpdate.length < 1 ? hummerId.address : addressUpdate} placeholder={lang.address} id="address" className={styleInd.inpAdd}/>
+                                                                }} value={addressUpdate} placeholder={lang.address} id="address" className={styleInd.inpAdd}/>
                                                             </div>
                                                             <div className={styleInd.formInpDiv}>
                                                                 <label htmlFor="category" className={styleInd.label}>{lang["category-nav"]}</label>
@@ -366,19 +391,18 @@ export default function Restaurants () {
                                                             setCuisineUpdate("");
                                                             setDeliveryMinUpdate(1);
                                                             setDeliveryPriceUpdate(0);
-                                                            setImageUpdata(null);
+                                                            setImageUpdata("");
                                                             setHammerOpen(false);
                                                         }}>{lang.cancel}</button>
                                                         <button type="submit" className={styleInd.createBtn} onClick={() => {
-                                                            console.log(rest.id)
-                                                            axios.put(`http://localhost:3000/api/restuarants/${hummerId.id}`, {
-                                                                name:updateName.length < 1 ? hummerId.name : updateName,
+                                                            axios.put(`http://localhost:3000/api/restuarants/${hummerId}`, {
+                                                                name:updateName,
                                                                 category_id:categoryInp,
-                                                                img_url:imageUpdate ? imageUpdate : hummerId.img_url,
-                                                                cuisine:cuisineUpdate.length < 1 ? hummerId.cuisine : cuisineUpdate,
-                                                                address:addressUpdate.length < 1 ? hummerId.address : addressUpdate,
-                                                                delivery_min:deliveryMinUpdate == hummerId.delivery_min ? hummerId.delivery_min : deliveryMinUpdate,
-                                                                delivery_price:deliveryPriceUpdate == hummerId.delivery_price ? hummerId.delivery_price : deliveryPriceUpdate
+                                                                img_url:imageUpdate,
+                                                                cuisine:cuisineUpdate,
+                                                                address:addressUpdate,
+                                                                delivery_min:deliveryMinUpdate,
+                                                                delivery_price:deliveryPriceUpdate
                                                             }).then(res => {
                                                                 setWinOpen(true)
                                                             }).catch(err => {
@@ -403,7 +427,12 @@ export default function Restaurants () {
                                             </div>
                                             <div className={restStyle.btnBoxRest}>
                                                 <button className={restStyle.renameBtn} onClick={() => {
-                                                    setHummerId(rest)
+                                                    setUpdateName(rest.name)
+                                                    setAddressUpdate(rest.address)
+                                                    setCuisineUpdate(rest.cuisine)
+                                                    setDeliveryMinUpdate(rest.delivery_min)
+                                                    setDeliveryPriceUpdate(rest.delivery_price)
+                                                    setHummerId(rest.id)
                                                     setHammerOpen(true)
                                                 }}><IoHammerOutline size={30}/></button>
                                                 <button className={restStyle.btnDelete} onClick={() => {

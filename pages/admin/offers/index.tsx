@@ -21,13 +21,13 @@ export default function Offers() {
     const [trashOpen, setTrashOpen] = useState(false)
     const [addOpen, setAddOpen] = useState(false);
     const [fileName, setFileName] = useState("Not choose image");
-    const [imageProd, setImageProd] = useState(null);
+    const [imageProd, setImageProd] = useState("");
     const [addTitle, setAddTitle] = useState("");
     const [addDescription, setAddDescription] = useState("")
     const [lang, setLang] = useState(engLang)
     const [errorOpen, setErrorOpen] = useState(false)
     const [error, setError] = useState("")
-    const [offerID, setOfferID] = useState({});
+    const [offerID, setOfferID] = useState("");
 
     useEffect(() => {
         axios.get("http://localhost:3000/api/offer")
@@ -81,14 +81,16 @@ export default function Offers() {
                                 <div>
                                     <h3 className={styleInd.addProdText}>{lang.addOffer}</h3>
                                     <div className={styleInd.formImageBox}>
-                                        <form onClick={() => document.querySelector(".input-files-offers").click()} className={styleInd.formImg}>
-                                            <input type="file" accept="image/*" className="input-files-offers" hidden onChange={(e) => {
-                                                var filesi = e.target.files;
-                                                filesi[0] && setFileName(filesi[0].name)
-                                                if (filesi) {
-                                                    setImageProd(URL.createObjectURL(filesi[0]));
+                                    <form onClick={(event:any) => event.target.querySelector(".input-files-offers")?.click()} className={styleInd.formImg}>
+                                        <input type="file" accept="image/*" className="input-files-offers" hidden onChange={(e) => {
+                                            var filesi = e.target.files
+                                            if (filesi && filesi.length > 0) {
+                                                const file = filesi[0]
+                                                if(file instanceof File){
+                                                    setImageProd(URL.createObjectURL(file));
                                                 }
-                                            }} /><IoCloudUploadOutline color={"#fff"} size={30} />
+                                            }
+                                        }}/><IoCloudUploadOutline color={"#fff"} size={30}/>
                                         </form>
                                         {imageProd ? <img src={imageProd} alt="photoProd" className={styleInd.imageAdd} /> : ''}
                                     </div>
@@ -115,7 +117,7 @@ export default function Offers() {
                                         <button onClick={() => {
                                             setAddTitle("")
                                             setAddDescription("")
-                                            setImageProd(null)
+                                            setImageProd("")
                                             setAddOpen(false)
                                         }} className={styleInd.cancelBtn}>{lang.cancel}</button>
                                         <button className={styleInd.createBtn} onClick={() => {
@@ -126,7 +128,7 @@ export default function Offers() {
                                             }).then(res => {
                                                 setAddTitle("");
                                                 setAddDescription("");
-                                                setImageProd(null)
+                                                setImageProd("")
                                                 setAddOpen(false)
                                             }).catch(err => {
                                                 setError(err)
@@ -174,7 +176,7 @@ export default function Offers() {
                                         <h3 style={{ width: "20%" }} className={offStyle.descriptionText}>{offer.description}</h3>
                                         <div style={{ width: "20%" }}>
                                             <button onClick={() => {
-                                                setOfferID(offer)
+                                                setOfferID(offer.id)
                                                 setTrashOpen(true)
                                             }} style={{background:"none", border:"none"}}><IoTrashOutline className={offStyle.deleteIo}/></button>
                                         </div>
@@ -189,7 +191,7 @@ export default function Offers() {
                                                         setTrashOpen(false)
                                                     }}>{lang.cancel}</button>
                                                     <button className={catStyle.deleteBtnDelete} onClick={() => {
-                                                        axios.delete(`http://localhost:3000/api/offer/${offerID.id}`)
+                                                        axios.delete(`http://localhost:3000/api/offer/${offerID}`)
                                                             .then(res => {
                                                                 setTrashOpen(false)
                                                             }).catch(err => {

@@ -82,11 +82,11 @@ export default function Orders () {
                             </div>
                             <div className={orderStyle.listBoxMainInd}>
                                 {dataOrders.length >= 1 ? 
-                                    dataOrders.map(item => (
+                                    dataOrders.map((item:any) => (
                                         <div className={orderStyle.oneList}>
                                             <h3 style={{width:"12%"}} className={orderStyle.headerMainTextListID}>{item.id.split("").slice(0,5).join('')}</h3>
                                             <h3 style={{width:"12%"}} className={orderStyle.headerMainTextListID}>{item.custome_id.split("").slice(0,5).join('')}</h3>
-                                            <h3 style={{width:"12%"}} className={orderStyle.headerMainTextList}>{new Date}</h3>
+                                            <h3 style={{width:"12%"}} className={orderStyle.headerMainTextList}>{new Date().toISOString()}</h3>
                                             <h3 style={{width:"12%"}} className={orderStyle.headerMainTextList}>{`${item.delivery_address.split("").slice(0,8).join("")}...`}</h3>
                                             <h3 style={{width:"12%"}} className={orderStyle.headerMainTextList}>{item.amount}$</h3>
                                             <h3 style={{width:"12%"}} className={orderStyle.headerMainTextList}>{item.payment_method == 1 ? "Cart" : "Cash on delivery"}</h3>
