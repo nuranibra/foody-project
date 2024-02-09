@@ -81,7 +81,7 @@ export default function AdminLogin () {
                                 }}/>
                                 <button type="submit" className={style.btn} style={{display:"flex", justifyContent:"center", alignItems:"center"}} onClick={() => {
                                     setLoading(true)
-                                    axios.post("http://localhost:3000/api/auth/signin", {
+                                    axios.post("https://foody-project-green.vercel.app/api/auth/signin", {
                                         email,
                                         password
                                     }).then(res => {

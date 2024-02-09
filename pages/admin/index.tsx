@@ -38,7 +38,7 @@ const AdminDashboard: NextPage = () => {
   const [langOpen, setLangOpen] = useState(false)
   const [lang, setLang] = useState(engLang)
   useEffect(() => {
-    axios.get('http://localhost:3000/api/restuarants')
+    axios.get('https://foody-project-green.vercel.app/api/restuarants')
     .then((res:any) => {
       setRestData(res.data.result.data)
     })
@@ -107,10 +107,6 @@ const AdminDashboard: NextPage = () => {
   //     }
   //     setRgb(rgbArr);
   // }, [restData])
-
-  // console.log(rgb)
-  console.log(openAddProduct)
-  console.log(restData)
 
   return (
     <div>
@@ -219,7 +215,7 @@ const AdminDashboard: NextPage = () => {
               <div className={styleInd.btnChildBoxCreate}>
                 <button className={styleInd.createBtn} onClick={() => {
                   if(name && description && image && price) {
-                    axios.post("http://localhost:3000/api/products", {
+                    axios.post("https://foody-project-green.vercel.app/api/products", {
                       name,
                       description,
                       img_url: image,

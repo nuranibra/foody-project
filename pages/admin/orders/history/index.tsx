@@ -28,7 +28,7 @@ export default function History () {
     }, [router])
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/order/history", {
+        axios.get("https://foody-project-green.vercel.app/api/order/history", {
             headers: {
                 Authorization: `Bearer ${localStorage.getItem("access-token")}`
             }

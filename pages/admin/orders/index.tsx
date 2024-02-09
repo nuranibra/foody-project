@@ -35,7 +35,7 @@ export default function Orders () {
     }, [router])
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/order", {
+        axios.get("https://foody-project-green.vercel.app/api/order", {
             headers:{
                 Authorization: `Bearer ${localStorage.getItem("access-token")}`
             }

@@ -49,7 +49,7 @@ export default function Categoy () {
     }, [router])
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/category").then(res => {
+        axios.get("https://foody-project-green.vercel.app/api/category").then(res => {
             setCategoryData(res.data.result.data)
         }).catch(err => alert(err))
     }, [openCategory, openTrash, openHammer])
@@ -144,7 +144,7 @@ export default function Categoy () {
                                         setOpenHammer(false)
                                     }}>{lang.cancel}</button>
                                     <button className={catStyle.createBtn} onClick={() => {
-                                        axios.put(`http://localhost:3000/api/category/${hummerId}`, {
+                                        axios.put(`https://foody-project-green.vercel.app/api/category/${hummerId}`, {
                                             name:titleUpdate,
                                             slug:descriptionUpdate,
                                             img_url:imgUpdate
@@ -219,7 +219,7 @@ export default function Categoy () {
                                         setOpenCategory(false)
                                     }}>{lang.cancel}</button>
                                     <button className={catStyle.createBtn} onClick={() => {
-                                        axios.post("http://localhost:3000/api/category", {
+                                        axios.post("https://foody-project-green.vercel.app/api/category", {
                                             name:nameCategory,
                                             slug:slugCategory,
                                             img_url:imageProd
@@ -292,7 +292,7 @@ export default function Categoy () {
                                                         setOpenTrash(false)
                                                     }}>{lang.cancel}</button>
                                                     <button className={catStyle.deleteBtnDelete} onClick={() => {
-                                                        axios.delete(`http://localhost:3000/api/category/${hummerId}`)
+                                                        axios.delete(`https://foody-project-green.vercel.app/api/category/${hummerId}`)
                                                             .then(res => {
                                                                 setOpenTrash(false)
                                                             }).catch(err => {

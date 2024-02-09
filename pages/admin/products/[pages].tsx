@@ -41,7 +41,7 @@ export default function Product () {
       }, [])
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/category")
+        axios.get("https://foody-project-green.vercel.app/api/category")
             .then(res => {
                 setCategory(res.data.result.data)
             }).catch(err => {
@@ -50,14 +50,14 @@ export default function Product () {
     }, [])
 
     useEffect(() => {
-        axios.get('http://localhost:3000/api/restuarants')
+        axios.get('https://foody-project-green.vercel.app/api/restuarants')
         .then((res:any) => {
           setRestData(res.data.result.data)
         })
       }, [])
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/products")
+        axios.get("https://foody-project-green.vercel.app/api/products")
             .then(res => {
                 setProduct(res.data.result.data)
             }).catch(err => {
@@ -66,7 +66,7 @@ export default function Product () {
     }, [trashOpen, openHammer, winOpen])
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/restuarants")
+        axios.get("https://foody-project-green.vercel.app/api/restuarants")
             .then(res => {
                 setRestuarants(res.data.result.data)
             }).catch(err => {
@@ -208,7 +208,7 @@ export default function Product () {
                                             </div>
                                             <div className={styleInd.btnChildBoxCreate}>
                                                 <button className={styleInd.createBtn} onClick={() => {
-                                                    axios.post("http://localhost:3000/api/products", {
+                                                    axios.post("https://foody-project-green.vercel.app/api/products", {
                                                     name:nameUpdate.length < 1 ? item.name : nameUpdate,
                                                     description:descriptionUpdate.length < 1 ? item.description : descriptionUpdate,
                                                     img_url: imageUpdate ? imageUpdate : item.img_url,
@@ -235,7 +235,7 @@ export default function Product () {
                                                         }}>{lang.cancel}</button>
                                                         <button className={catStyle.deleteBtnDelete} onClick={() => {
                                                             console.log(item.name)
-                                                            axios.delete(`http://localhost:3000/api/products/${deleteItem}`)
+                                                            axios.delete(`https://foody-project-green.vercel.app/api/products/${deleteItem}`)
                                                                 .then(res => {
                                                                     setTrashOpen(false)
                                                                 }).catch(err => {

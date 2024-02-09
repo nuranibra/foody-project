@@ -30,7 +30,7 @@ export default function Offers() {
     const [offerID, setOfferID] = useState("");
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/offer")
+        axios.get("https://foody-project-green.vercel.app/api/offer")
             .then(res => {
                 setOffersData(res.data.result.data)
             }).catch((err: any) => {
@@ -121,7 +121,7 @@ export default function Offers() {
                                             setAddOpen(false)
                                         }} className={styleInd.cancelBtn}>{lang.cancel}</button>
                                         <button className={styleInd.createBtn} onClick={() => {
-                                            axios.post("http://localhost:3000/api/offer", {
+                                            axios.post("https://foody-project-green.vercel.app/api/offer", {
                                                 name: addTitle,
                                                 description: addDescription,
                                                 img_url: imageProd
@@ -191,7 +191,7 @@ export default function Offers() {
                                                         setTrashOpen(false)
                                                     }}>{lang.cancel}</button>
                                                     <button className={catStyle.deleteBtnDelete} onClick={() => {
-                                                        axios.delete(`http://localhost:3000/api/offer/${offerID}`)
+                                                        axios.delete(`https://foody-project-green.vercel.app/api/offer/${offerID}`)
                                                             .then(res => {
                                                                 setTrashOpen(false)
                                                             }).catch(err => {

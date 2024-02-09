@@ -69,7 +69,7 @@ export default function Restaurants () {
       }, [])
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/restuarants")
+        axios.get("https://foody-project-green.vercel.app/api/restuarants")
         .then(res => {
             setData(res.data.result.data)
         }).catch(error => {
@@ -78,7 +78,7 @@ export default function Restaurants () {
     }, [trashOpen, openRest])
 
     useEffect(() => {
-        axios.get("http://localhost:3000/api/category")
+        axios.get("https://foody-project-green.vercel.app/api/category")
             .then(res => {
                 setCategory(res.data.result.data)
             }).catch(error => {
@@ -227,7 +227,7 @@ export default function Restaurants () {
                                     setOpenRest(false)
                                 }}>{lang.cancel}</button>
                                 <button type="submit" className={styleInd.createBtn} onClick={() => {
-                                    axios.post("http://localhost:3000/api/restuarants", {
+                                    axios.post("https://foody-project-green.vercel.app/api/restuarants", {
                                         name,
                                         category_id:categoryInp,
                                         img_url:imageProd,
@@ -291,7 +291,7 @@ export default function Restaurants () {
                                                             setTrashOpen(false)
                                                         }}>{lang.cancel}</button>
                                                         <button className={catStyle.deleteBtnDelete} onClick={() => {
-                                                            axios.delete(`http://localhost:3000/api/restuarants/${trashId}`)
+                                                            axios.delete(`https://foody-project-green.vercel.app/api/restuarants/${trashId}`)
                                                                 .then(res => {
                                                                     setTrashOpen(false)
                                                                 }).catch(err => {
@@ -394,7 +394,7 @@ export default function Restaurants () {
                                                             setHammerOpen(false);
                                                         }}>{lang.cancel}</button>
                                                         <button type="submit" className={styleInd.createBtn} onClick={() => {
-                                                            axios.put(`http://localhost:3000/api/restuarants/${hummerId}`, {
+                                                            axios.put(`https://foody-project-green.vercel.app/api/restuarants/${hummerId}`, {
                                                                 name:updateName,
                                                                 category_id:categoryInp,
                                                                 img_url:imageUpdate,
