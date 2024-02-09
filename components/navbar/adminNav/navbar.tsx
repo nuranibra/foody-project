@@ -29,7 +29,7 @@ export default function NavBarAdmin() {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState(0);
-  const [image, setImage] = useState(null);
+  const [image, setImage] = useState("");
   const [restaurantSelect, setRestaurantSelect] = useState("");
   const [restData, setRestData] = useState([]);
   const [errorOpen, setErrorOpen] = useState(false);
@@ -44,13 +44,13 @@ export default function NavBarAdmin() {
   }, []);
 
   useEffect(() => {
-    if(router.locale == "en"){
+    if (router.locale == "en") {
       setLangURL("https://flagdownload.com/wp-content/uploads/Flag_of_United_Kingdom_Flat_Round-128x128.png")
       setLang(engLang)
-    } else if (router.locale == "az"){
+    } else if (router.locale == "az") {
       setLangURL("https://flagdownload.com/wp-content/uploads/Flag_of_Azerbaijan_Flat_Round-128x128.png")
       setLang(azeLang)
-    } else if (router.locale == "ru"){
+    } else if (router.locale == "ru") {
       setLangURL("https://flagdownload.com/wp-content/uploads/Flag_of_Russia_Flat_Round-128x128.png")
       setLang(rusLang)
     }
@@ -101,7 +101,7 @@ export default function NavBarAdmin() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      if(winOpen){
+      if (winOpen) {
         setWinOpen(false)
       } else if (errorOpen) {
         setErrorOpen(false)
@@ -113,13 +113,13 @@ export default function NavBarAdmin() {
 
   return (
     <>
-    {openHamburger ? <section style={{zIndex:"1",position:"absolute", width:"100%", height:"100vh", top:"0", left:"0", backgroundColor:"rgba(0,0,0,0.635)"}}>
-                <div style={{width:"70%", height:"100vh", backgroundColor:"#C74FEB"}}>
-                <div style={{paddingTop:"20%", height:"100vh", boxSizing:"border-box"}}>
-                  <AdminFloatNav />
-                </div>
-                </div>
-            </section> : ''}
+      {openHamburger ? <section style={{ zIndex: "1", position: "absolute", width: "100%", height: "100vh", top: "0", left: "0", backgroundColor: "rgba(0,0,0,0.635)" }}>
+        <div style={{ width: "70%", height: "100vh", backgroundColor: "#C74FEB" }}>
+          <div style={{ paddingTop: "20%", height: "100vh", boxSizing: "border-box" }}>
+            <AdminFloatNav />
+          </div>
+        </div>
+      </section> : ''}
       <div className={navStyle.header} >
         {winOpen ? (
           <section
@@ -196,15 +196,15 @@ export default function NavBarAdmin() {
           style={
             openProd
               ? {
-                  zIndex: "3",
-                  display: "block",
-                  position: "absolute",
-                  top: "0",
-                  right: "0",
-                  backgroundColor: "rgba(0, 0, 0, 0.635)",
-                  width: "100%",
-                  height: "100%",
-                }
+                zIndex: "3",
+                display: "block",
+                position: "absolute",
+                top: "0",
+                right: "0",
+                backgroundColor: "rgba(0, 0, 0, 0.635)",
+                width: "100%",
+                height: "100%",
+              }
               : { display: "none" }
           }
         >
@@ -232,25 +232,16 @@ export default function NavBarAdmin() {
                   <h4 className={styleInd.ehmed}>{lang["product-upload-image-text"]}</h4>
                 </div>
                 <div className={styleInd.formImageBox}>
-                  <form
-                    onClick={() =>
-                      document.querySelector(".input-file").click()
-                    }
-                    className={styleInd.formImg}
-                  >
-                    <input
-                      type="file"
-                      accept="image/*"
-                      className="input-file"
-                      hidden
-                      onChange={({ target: { files } }) => {
-                        files[0] && setFileName(files[0].name);
-                        if (files) {
-                          setImage(URL.createObjectURL(files[0]));
+                  <form onClick={(event: any) => event.target.querySelector(".input-file")?.click()} className={styleInd.formImg}>
+                    <input type="file" accept="image/*" className="input-file" hidden onChange={(e) => {
+                      var filesi = e.target.files
+                      if (filesi && filesi.length > 0) {
+                        const file = filesi[0]
+                        if (file instanceof File) {
+                          setImage(URL.createObjectURL(file));
                         }
-                      }}
-                    />
-                    <IoCloudUploadOutline color={"#fff"} size={30} />
+                      }
+                    }} /><IoCloudUploadOutline color={"#fff"} size={30} />
                   </form>
                   {image ? (
                     <img
@@ -311,7 +302,7 @@ export default function NavBarAdmin() {
                         value={price}
                         id="price"
                         className={styleInd.inpAdd}
-                        onChange={(e:any) => {
+                        onChange={(e: any) => {
                           setPrice(e.target.value);
                         }}
                       />
@@ -328,7 +319,7 @@ export default function NavBarAdmin() {
                         className={styleInd.inpAdd}
                       >
                         <option>{lang.chooseRest}</option>
-                        {restData.map((data:any, index:number) => (
+                        {restData.map((data: any, index: number) => (
                           <option key={index} value={data.id}>
                             {data.name}
                           </option>
@@ -345,7 +336,7 @@ export default function NavBarAdmin() {
                     onClick={() => {
                       setName("");
                       setDescription("");
-                      setImage(null);
+                      setImage("");
                       setPrice(0);
                       setOpenProd(false);
                     }}
@@ -363,7 +354,7 @@ export default function NavBarAdmin() {
                             name,
                             description,
                             img_url: image,
-                            rest_id:restaurantSelect,
+                            rest_id: restaurantSelect,
                             price,
                           })
                           .then(function (res) {
@@ -384,17 +375,17 @@ export default function NavBarAdmin() {
             </div>
           </div>
         </section>
-        <div style={{display:"flex", gap:"10px",zIndex:"2"}}>
+        <div style={{ display: "flex", gap: "10px", zIndex: "2" }}>
           <div onClick={() => {
-            if(openHamburger){
+            if (openHamburger) {
               setOpenHamburger(false)
             } else {
               setOpenHamburger(true)
             }
           }} className={styleInd.hamburgerBox}>
-            <div className={styleInd.hamburger} style={openHamburger ? {transform:"rotate(-45deg)", marginBottom:"-2px", transition:"calc(0.2s)"} : {transform:"rotate(0deg)"}}></div>
-            <div className={styleInd.hamburger} style={openHamburger ? {display:"none"} : {display:"block", transition:"calc(0.2s)", width:"15px"}}></div>
-            <div className={styleInd.hamburger} style={openHamburger ? {transform:"rotate(45deg)", marginTop:"-2px", transition:"calc(0.2s)"} : {transform:"rotate(0deg)"}}></div>
+            <div className={styleInd.hamburger} style={openHamburger ? { transform: "rotate(-45deg)", marginBottom: "-2px", transition: "calc(0.2s)" } : { transform: "rotate(0deg)" }}></div>
+            <div className={styleInd.hamburger} style={openHamburger ? { display: "none" } : { display: "block", transition: "calc(0.2s)", width: "15px" }}></div>
+            <div className={styleInd.hamburger} style={openHamburger ? { transform: "rotate(45deg)", marginTop: "-2px", transition: "calc(0.2s)" } : { transform: "rotate(0deg)" }}></div>
           </div>
           <Logo />
         </div>
@@ -429,15 +420,15 @@ export default function NavBarAdmin() {
                 style={
                   langOpen
                     ? {
-                        backgroundColor: "#27283C",
-                        display: "flex",
-                        position: "absolute",
-                        flexDirection: "column",
-                        alignItems:"center",
-                        alignSelf:"center",
-                        justifyContent:"center",
-                        gap:"5px"
-                      }
+                      backgroundColor: "#27283C",
+                      display: "flex",
+                      position: "absolute",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      alignSelf: "center",
+                      justifyContent: "center",
+                      gap: "5px"
+                    }
                     : { display: "none" }
                 }
               >
