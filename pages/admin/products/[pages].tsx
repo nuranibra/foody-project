@@ -6,7 +6,6 @@ import AdminFootEaCamp from "../../../components/footer/adminFooter/adminEaCampF
 import styleInd from './../index.module.css'
 import { useEffect, useState } from "react";
 import axios from "axios";
-import ProductBox from "../../../components/productsBox/ProductBox";
 import catStyle from './../category/category.module.css'
 import { useRouter } from "next/router";
 import engLang from './../../../langJson/engJson.json';

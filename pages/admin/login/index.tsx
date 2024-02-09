@@ -8,7 +8,7 @@ import axios from "axios";
 import engLang from './../../../langJson/engJson.json';
 import azeLang from './../../../langJson/azeJson.json';
 import rusLang from './../../../langJson/rusJson.json';
-import { ColorRing, Oval, RotatingLines, TailSpin } from "react-loader-spinner";
+import { ColorRing, Oval, RotatingLines, TailSpin, ThreeDots } from "react-loader-spinner";
 
 export default function AdminLogin () {
     const router = useRouter();
@@ -91,14 +91,13 @@ export default function AdminLogin () {
                                     }).catch(err => {
                                         alert("hata")
                                     })
-                                }}>{loading ? <RotatingLines
+                                }}>{loading ? <ThreeDots
                                     visible={true}
-                                    height="40"
-                                    width="40"
-                                    color="black"
-                                    strokeWidth="3"
-                                    animationDuration="0.50"
-                                    ariaLabel="rotating-lines-loading"
+                                    height="80"
+                                    width="80"
+                                    color="#fff"
+                                    radius="9"
+                                    ariaLabel="three-dots-loading"
                                     wrapperStyle={{}}
                                     wrapperClass=""
                                     />: lang["sign-in"]}</button>
