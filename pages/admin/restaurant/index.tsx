@@ -7,7 +7,6 @@ import axios from "axios";
 import styleInd from './../index.module.css'
 import { useCallback, useEffect, useState } from "react";
 import catStyle from './../category/category.module.css'
-import FormImg from "../../../components/formImage/formImage";
 import styleProd from './../products/products.module.css'
 import { IoCheckmarkCircleOutline, IoCloseCircle, IoCloseCircleOutline, IoCloudUploadOutline, IoHammerOutline, IoTrashOutline } from "react-icons/io5";
 import { useRouter } from "next/router";
