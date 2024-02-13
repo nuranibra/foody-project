@@ -38,7 +38,7 @@ export default function NavBarAdmin() {
   const [openHamburger, setOpenHamburger] = useState(false);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/api/restuarants").then((res: any) => {
+    axios.get("https://foody-project-green.vercel.app/api/restuarants").then((res: any) => {
       setRestData(res.data.result.data);
     });
   }, []);
